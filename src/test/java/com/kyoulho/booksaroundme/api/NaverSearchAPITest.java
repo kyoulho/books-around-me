@@ -1,4 +1,4 @@
-package com.kyoulho.booksaroundme.Util;
+package com.kyoulho.booksaroundme.api;
 
 import com.kyoulho.booksaroundme.domain.BookVO;
 import org.junit.jupiter.api.Test;

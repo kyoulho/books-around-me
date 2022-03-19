@@ -1,4 +1,4 @@
-package com.kyoulho.booksaroundme.Util;
+package com.kyoulho.booksaroundme.api;
 
 import com.kyoulho.booksaroundme.domain.BookVO;
 import org.json.JSONArray;
@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @Component
-public class NaverSearchAPI {
+public class NaverSearchAPI implements SearchAPI{
     private static final String CLIENT_ID = "jyHa96iNcbPZ07I2HCY0";
     private static final String CLIENT_SECRET = "6qCHcDzqu0";
 
@@ -50,7 +50,7 @@ public class NaverSearchAPI {
     }
 
 
-    private static String getBooksData(String keyword) {
+    private  String getBooksData(String keyword) {
         String query;
         query = URLEncoder.encode(keyword, StandardCharsets.UTF_8);
 
@@ -63,7 +63,7 @@ public class NaverSearchAPI {
         return getData(apiURL, requestHeaders);
     }
 
-    private static String getData(String apiUrl, Map<String, String> requestHeaders) {
+    private  String getData(String apiUrl, Map<String, String> requestHeaders) {
         HttpURLConnection con = connect(apiUrl);
         try {
             con.setRequestMethod("GET");
@@ -84,7 +84,7 @@ public class NaverSearchAPI {
         }
     }
 
-    private static HttpURLConnection connect(String apiUrl) {
+    private  HttpURLConnection connect(String apiUrl) {
         try {
             URL url = new URL(apiUrl);
             return (HttpURLConnection) url.openConnection();
@@ -95,7 +95,7 @@ public class NaverSearchAPI {
         }
     }
 
-    private static String readbody(InputStream body) {
+    private  String readbody(InputStream body) {
         InputStreamReader streamReader = new InputStreamReader(body);
 
         try (BufferedReader lineReader = new BufferedReader(streamReader)) {

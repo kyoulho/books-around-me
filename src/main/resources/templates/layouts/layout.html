@@ -7,25 +7,25 @@
     <meta name="author" content=""/>
     <title>Book Around Me</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico"/>
+    <link rel="icon" type="image/x-icon" th:href="@{/assets/favicon.ico}"/>
     <!-- Bootstrap icons-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet"/>
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="/css/styles.css" rel="stylesheet"/>
+    <link th:href="@{/css/styles.css}" rel="stylesheet"/>
 </head>
 <body>
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="#!">BookAroundMe</a>
+        <a class="navbar-brand" th:href="@{/}">BookAroundMe</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
                 class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
-                <li class="nav-item dropdown">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4 visually-hidden">
+                <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/}">Home</a></li>
+                <li class="nav-item"><a class="nav-link " href="#!">About</a></li>
+                <li class="nav-item dropdown ">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -38,7 +38,7 @@
                     </ul>
                 </li>
             </ul>
-            <form class="d-flex">
+            <form class="d-flex visually-hidden">
                 <button class="btn btn-outline-dark" type="submit">
                     <i class="bi bi-person-circle"></i>
                     Login
@@ -53,8 +53,10 @@
     <div class="container px-4 px-lg-5 my-auto">
         <div class="text-center text-white ">
             <h3 class="display-4 fw-bolder ">Let's find the book</h3>
-            <form id="search-form" action="/book/searchBook">
-                <input type="text" class="form-text" name="keyword" th:value="${keyword}"/>
+            <form id="search-form" th:action="@{/book/searchBook}">
+                <label>
+                    <input type="text" class="form-text" name="keyword" th:value="${keyword}"/>
+                </label>
                 <button type="submit" class="btn btn-light">search</button>
             </form>
         </div>
@@ -65,7 +67,7 @@
     <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-5 justify-content-center">
             <div th:if="${list!=null}" th:each="BookVO : ${list}" class="col mb-5">
-                <a th:href="@{#}">
+                <a th:href="@{/book/detailBook(isbn=${BookVO.isbn})}">
                     <div class="card h-100">
                         <!-- Product image-->
                         <img class="card-img" style="height: 65%" th:src="${BookVO.imageSrc}" alt="..."/>
