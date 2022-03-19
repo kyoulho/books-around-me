@@ -1,4 +1,4 @@
-package com.kyoulho.booksaroundme.crawler;
+package com.kyoulho.booksAroundMe.crawler;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.kyoulho.booksaroundme;
+package com.kyoulho.booksAroundMe;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

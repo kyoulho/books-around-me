@@ -1,4 +1,4 @@
-package com.kyoulho.booksaroundme;
+package com.kyoulho.booksAroundMe;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

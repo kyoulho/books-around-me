@@ -1,9 +1,7 @@
-package com.kyoulho.booksaroundme.controller;
+package com.kyoulho.booksAroundMe.controller;
 
-import com.kyoulho.booksaroundme.domain.BookVO;
-import com.kyoulho.booksaroundme.api.NaverSearchAPI;
-import com.kyoulho.booksaroundme.crawler.KyoboCrawler;
-import com.kyoulho.booksaroundme.service.BookService;
+import com.kyoulho.booksAroundMe.domain.BookVO;
+import com.kyoulho.booksAroundMe.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

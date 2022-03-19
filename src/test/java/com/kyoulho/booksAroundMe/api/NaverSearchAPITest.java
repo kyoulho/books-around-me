@@ -1,6 +1,6 @@
-package com.kyoulho.booksaroundme.api;
+package com.kyoulho.booksAroundMe.api;
 
-import com.kyoulho.booksaroundme.domain.BookVO;
+import com.kyoulho.booksAroundMe.domain.BookVO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

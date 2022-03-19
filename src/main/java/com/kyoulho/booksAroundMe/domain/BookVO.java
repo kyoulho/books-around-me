@@ -1,4 +1,4 @@
-package com.kyoulho.booksaroundme.domain;
+package com.kyoulho.booksAroundMe.domain;
 
 import lombok.Data;
 

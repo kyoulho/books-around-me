@@ -1,6 +1,6 @@
-package com.kyoulho.booksaroundme.service;
+package com.kyoulho.booksAroundMe.service;
 
-import com.kyoulho.booksaroundme.domain.BookVO;
+import com.kyoulho.booksAroundMe.domain.BookVO;
 
 import java.util.List;
 

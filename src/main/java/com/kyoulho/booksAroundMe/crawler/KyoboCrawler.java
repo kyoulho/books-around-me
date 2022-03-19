@@ -1,4 +1,4 @@
-package com.kyoulho.booksaroundme.crawler;
+package com.kyoulho.booksAroundMe.crawler;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

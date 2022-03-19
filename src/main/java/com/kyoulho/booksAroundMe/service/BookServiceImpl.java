@@ -1,7 +1,7 @@
-package com.kyoulho.booksaroundme.service;
+package com.kyoulho.booksAroundMe.service;
 
-import com.kyoulho.booksaroundme.api.SearchAPI;
-import com.kyoulho.booksaroundme.domain.BookVO;
+import com.kyoulho.booksAroundMe.api.SearchAPI;
+import com.kyoulho.booksAroundMe.domain.BookVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

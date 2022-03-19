@@ -1,6 +1,6 @@
-package com.kyoulho.booksaroundme.api;
+package com.kyoulho.booksAroundMe.api;
 
-import com.kyoulho.booksaroundme.domain.BookVO;
+import com.kyoulho.booksAroundMe.domain.BookVO;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
