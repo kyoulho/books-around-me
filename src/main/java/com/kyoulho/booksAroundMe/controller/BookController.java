@@ -1,7 +1,7 @@
 package com.kyoulho.booksAroundMe.controller;
 
 import com.kyoulho.booksAroundMe.dto.BookDTO;
-import com.kyoulho.booksAroundMe.dto.PageMaker;
+import com.kyoulho.booksAroundMe.entity.PageMaker;
 import com.kyoulho.booksAroundMe.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

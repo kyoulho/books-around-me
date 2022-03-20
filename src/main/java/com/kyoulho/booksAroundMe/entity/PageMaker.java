@@ -1,4 +1,4 @@
-package com.kyoulho.booksAroundMe.dto;
+package com.kyoulho.booksAroundMe.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,7 +13,6 @@ public class PageMaker {
     private String keyword;
     private int page;
     private int totalCount;
-    private int totalPageNum;
     private boolean prev;
     private boolean next;
     private int startPage;
@@ -27,13 +26,13 @@ public class PageMaker {
     }
 
     private void calcData() {
-        totalPageNum = (int) Math.ceil(totalCount / 10d);
+        int totalPageNum = (int) Math.ceil(totalCount / 10d);
         endPage = (int) (Math.ceil(page / (double) displayPageNum) * displayPageNum);
         startPage = (endPage - displayPageNum) + 1;
         if (endPage > totalPageNum) {
             endPage = totalPageNum;
         }
         prev = startPage != 1;
-        next = endPage == totalPageNum ? false : true;
+        next = endPage != totalPageNum;
     }
 }
