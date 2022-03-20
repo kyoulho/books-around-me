@@ -55,7 +55,7 @@
             <h3 class="display-4 fw-bolder ">Let's find the book</h3>
             <form id="search-form" th:action="@{/book/searchBook}">
                 <label>
-                    <input type="text" class="form-text" name="keyword" th:value="${keyword}"/>
+                    <input type="text" class="form-text" name="keyword" th:value="${param.get('keyword')}"/>
                     <input type="hidden" name="page" value="1">
                 </label>
                 <button type="submit" class="btn btn-light">search</button>
@@ -65,9 +65,10 @@
 </header>
 <!-- Section-->
 <section class="py-5">
-    <div class="container px-4 px-lg-5 mt-5">
-        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-5 justify-content-center">
-            <div th:if="${list!=null}" th:each="BookVO : ${list}" class="col mb-5">
+    <div class="container px-4 px-lg-5 mt-5" style="min-height: 31vh">
+        <div th:if="${list!=null}"
+             class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-5 justify-content-center">
+            <div th:each="BookVO : ${list}" class="col mb-5">
                 <a th:href="@{/book/detailBook(isbn=${BookVO.isbn})}">
                     <div class="card h-100">
                         <!-- Product image-->
@@ -85,9 +86,26 @@
                             <h7 th:text="${'가격: '+BookVO.price+ '원'}"></h7>
                             <br>
                         </div>
-
                     </div>
                 </a>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <ul class="pagination">
+                            <li th:if="${pageMaker.prev}" class="page-item"><a class="page-link"
+                                                                               th:href="@{searchBook(keyword=${param.get('keyword')},page=${pageMaker.startPage-pageMaker.displayPageNum})}">Prev</a>
+                            </li>
+                            <th:block th:each="num: ${#numbers.sequence(pageMaker.startPage,pageMaker.endPage)}">
+                                <li class="page-item"><a class="page-link" th:text="${num}"
+                                                         th:href="@{searchBook(keyword=${param.get('keyword')},page=${num})}"></a></li>
+                            </th:block>
+                            <li th:if="${pageMaker.next}" class="page-item"><a class="page-link"
+                                                                               th:href="@{searchBook(keyword=${param.get('keyword')},page=${pageMaker.endPage+1})}">Next</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

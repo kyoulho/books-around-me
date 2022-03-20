@@ -14,4 +14,9 @@ public class BookRepositoryTest {
     public void totalTest(){
         System.out.println(bookRepository.getBookTotal("정주영"));
     }
+
+    @Test
+    public void pageTest(){
+        System.out.println(bookRepository.getBookEntityList("정주영",2));
+    }
 }

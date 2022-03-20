@@ -21,7 +21,7 @@ public class NaverSearchAPI implements SearchAPI{
         String query;
         String start;
         query = URLEncoder.encode(keyword, StandardCharsets.UTF_8);
-        start = ""+(page-1)*10 + 1;
+        start = (page-1)*10 + 1 + "";
         String apiURL = "https://openapi.naver.com/v1/search/book.json?query=" + query + "&start="+start;
 
         Map<String, String> requestHeaders = new HashMap<>();
