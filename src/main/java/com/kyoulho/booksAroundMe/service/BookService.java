@@ -5,7 +5,7 @@ import com.kyoulho.booksAroundMe.dto.BookDTO;
 import java.util.List;
 
 public interface BookService {
+    public List<BookDTO> getBookList(String keyword, int page);
 
-    public List<BookDTO> searchBook(String keyword,int page);
-
+    public int getBookTotal(String keyword);
 }

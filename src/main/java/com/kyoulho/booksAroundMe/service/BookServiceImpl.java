@@ -15,7 +15,7 @@ public class BookServiceImpl implements BookService {
     private BookRepository bookRepository;
 
     @Override
-    public List<BookDTO> searchBook(String keyword, int page) {
+    public List<BookDTO> getBookList(String keyword, int page) {
         List<BookEntity> bookEntityList = bookRepository.getBookEntityList(keyword,page);
         List<BookDTO> bookDTOList = new ArrayList<>();
         for (BookEntity entity : bookEntityList) {
@@ -23,5 +23,10 @@ public class BookServiceImpl implements BookService {
             bookDTOList.add(dto);
         }
         return bookDTOList;
+    }
+
+    @Override
+    public int getBookTotal(String keyword) {
+        return bookRepository.getBookTotal(keyword);
     }
 }

@@ -17,7 +17,6 @@ public class BookRepositoryImpl implements BookRepository {
 
     @Override
     public List<BookEntity> getBookEntityList(String keyword, int page) {
-
         String jsonString = searchAPI.getBooksData(keyword, page);
         JSONObject jsonObject = new JSONObject(jsonString);
 
@@ -46,4 +45,12 @@ public class BookRepositoryImpl implements BookRepository {
         }
         return bookEntityList;
     }
+
+    @Override
+    public int getBookTotal(String keyword) {
+        String jsonString = searchAPI.getBooksData(keyword,1);
+        JSONObject jsonObject = new JSONObject(jsonString);
+        return (int)jsonObject.get("total");
+    }
+
 }
