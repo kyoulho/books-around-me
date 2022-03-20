@@ -1,4 +1,4 @@
-package com.kyoulho.booksAroundMe.entity;
+package com.kyoulho.booksAroundMe.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

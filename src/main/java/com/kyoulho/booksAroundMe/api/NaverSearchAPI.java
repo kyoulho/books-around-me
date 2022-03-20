@@ -12,17 +12,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class NaverSearchAPI implements SearchAPI{
+public class NaverSearchAPI implements SearchAPI {
     private static final String CLIENT_ID = "jyHa96iNcbPZ07I2HCY0";
     private static final String CLIENT_SECRET = "6qCHcDzqu0";
 
-
-    public  String getBooksData(String keyword,int page) {
+    public String getBooksData(String keyword, int page) {
         String query;
         String start;
         query = URLEncoder.encode(keyword, StandardCharsets.UTF_8);
-        start = (page-1)*10 + 1 + "";
-        String apiURL = "https://openapi.naver.com/v1/search/book.json?query=" + query + "&start="+start;
+        start = (page - 1) * 10 + 1 + "";
+        String apiURL = "https://openapi.naver.com/v1/search/book.json?query=" + query + "&start=" + start;
 
         Map<String, String> requestHeaders = new HashMap<>();
         requestHeaders.put("X-Naver-Client-Id", CLIENT_ID);
@@ -31,7 +30,7 @@ public class NaverSearchAPI implements SearchAPI{
         return getData(apiURL, requestHeaders);
     }
 
-    private  String getData(String apiUrl, Map<String, String> requestHeaders) {
+    private String getData(String apiUrl, Map<String, String> requestHeaders) {
         HttpURLConnection con = connect(apiUrl);
         try {
             con.setRequestMethod("GET");
@@ -52,7 +51,7 @@ public class NaverSearchAPI implements SearchAPI{
         }
     }
 
-    private  HttpURLConnection connect(String apiUrl) {
+    private HttpURLConnection connect(String apiUrl) {
         try {
             URL url = new URL(apiUrl);
             return (HttpURLConnection) url.openConnection();
@@ -63,7 +62,7 @@ public class NaverSearchAPI implements SearchAPI{
         }
     }
 
-    private  String readbody(InputStream body) {
+    private String readbody(InputStream body) {
         InputStreamReader streamReader = new InputStreamReader(body);
 
         try (BufferedReader lineReader = new BufferedReader(streamReader)) {
