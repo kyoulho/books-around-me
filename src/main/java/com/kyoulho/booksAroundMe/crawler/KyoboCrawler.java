@@ -23,7 +23,7 @@ public class KyoboCrawler {
         StringTokenizer storeNames = new StringTokenizer(document.select(query).select("th").text(), " ");
         StringTokenizer stockCounts = new StringTokenizer(document.select(query).select("td a").text(), " ");
         while (storeNames.hasMoreTokens()) {
-            map.put(storeNames.nextToken(), stockCounts.nextToken());
+            map.put("교보문고_"+storeNames.nextToken(), stockCounts.nextToken());
         }
         return map;
     }

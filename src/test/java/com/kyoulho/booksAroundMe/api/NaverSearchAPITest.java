@@ -1,11 +1,8 @@
 package com.kyoulho.booksAroundMe.api;
 
-import com.kyoulho.booksAroundMe.domain.BookVO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.List;
 
 
 @SpringBootTest
@@ -15,7 +12,7 @@ public class NaverSearchAPITest {
 
     @Test
     public void test(){
-        List<BookVO> list = naverSearchAPI.getBooksList("정주영");
-        System.out.println(list);
+       String result = naverSearchAPI.getBooksData("정주영",1 );
+        System.out.println(result);
     }
 }

@@ -1,6 +1,6 @@
 package com.kyoulho.booksAroundMe.controller;
 
-import com.kyoulho.booksAroundMe.domain.BookVO;
+import com.kyoulho.booksAroundMe.dto.BookDTO;
 import com.kyoulho.booksAroundMe.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,8 +18,8 @@ public class BookController {
     private BookService bookService;
 
     @GetMapping("/searchBook")
-    public void searchBook(@RequestParam String keyword, Model model) {
-       List<BookVO> list = bookService.searchBook(keyword);
+    public void searchBook(@RequestParam String keyword, @RequestParam int page, Model model) {
+       List<BookDTO> list = bookService.searchBook(keyword, page);
        model.addAttribute("keyword",keyword);
        model.addAttribute("list",list);
     }

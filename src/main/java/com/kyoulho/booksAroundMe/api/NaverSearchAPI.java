@@ -1,8 +1,5 @@
 package com.kyoulho.booksAroundMe.api;
 
-import com.kyoulho.booksAroundMe.domain.BookVO;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
@@ -11,9 +8,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Component
@@ -22,39 +17,12 @@ public class NaverSearchAPI implements SearchAPI{
     private static final String CLIENT_SECRET = "6qCHcDzqu0";
 
 
-    public List<BookVO> getBooksList(String keyword) {
-        String jsonString = getBooksData(keyword);
-        JSONObject jsonObject = new JSONObject(jsonString);
-        JSONArray items = jsonObject.getJSONArray("items");
-        List<BookVO> bookList = new ArrayList<>();
-
-        for (int i = 0; i < items.length(); i++) {
-            JSONObject item = items.getJSONObject(i);
-            BookVO bookVO = new BookVO();
-            String isbn = item.getString("isbn");
-            if (isbn.contains(" ")) {
-                isbn = isbn.substring(isbn.indexOf(" ") + 1);
-            }
-            bookVO.setIsbn(isbn);
-
-            String imageSrc = item.getString("image").replace("type=m1", "");
-            bookVO.setImageSrc(imageSrc);
-
-            bookVO.setPrice(item.getString("price"));
-            bookVO.setPublisher(item.getString("publisher"));
-            bookVO.setTitle(item.getString("title").replace("<b>", "").replace("</b>", ""));
-            bookVO.setAuthor(item.getString("author").replace("<b>", "").replace("</b>", ""));
-            bookList.add(bookVO);
-        }
-        return bookList;
-    }
-
-
-    private  String getBooksData(String keyword) {
+    public  String getBooksData(String keyword,int page) {
         String query;
+        String start;
         query = URLEncoder.encode(keyword, StandardCharsets.UTF_8);
-
-        String apiURL = "https://openapi.naver.com/v1/search/book.json?query=" + query;
+        start = ""+(page-1)*10 + 1;
+        String apiURL = "https://openapi.naver.com/v1/search/book.json?query=" + query + "&start="+start;
 
         Map<String, String> requestHeaders = new HashMap<>();
         requestHeaders.put("X-Naver-Client-Id", CLIENT_ID);

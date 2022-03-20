@@ -56,6 +56,7 @@
             <form id="search-form" th:action="@{/book/searchBook}">
                 <label>
                     <input type="text" class="form-text" name="keyword" th:value="${keyword}"/>
+                    <input type="hidden" name="page" value="1">
                 </label>
                 <button type="submit" class="btn btn-light">search</button>
             </form>

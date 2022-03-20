@@ -1,11 +1,11 @@
 package com.kyoulho.booksAroundMe.service;
 
-import com.kyoulho.booksAroundMe.domain.BookVO;
+import com.kyoulho.booksAroundMe.dto.BookDTO;
 
 import java.util.List;
 
 public interface BookService {
 
-    public List<BookVO> searchBook(String keyword);
+    public List<BookDTO> searchBook(String keyword,int page);
 
 }
