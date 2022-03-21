@@ -1,6 +1,7 @@
 package com.kyoulho.booksAroundMe.controller;
 
 import com.kyoulho.booksAroundMe.dto.PageMaker;
+import com.kyoulho.booksAroundMe.dto.SearchResultDTO;
 import com.kyoulho.booksAroundMe.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,10 +19,10 @@ public class BookController {
 
     @GetMapping("/searchBook")
     public void searchBook(PageMaker pageMaker, Model model) {
-        Map<String, Object> map = bookService.searchBook(pageMaker.getKeyword(), pageMaker.getPage());
-        pageMaker.setTotalCount((int) map.get("totalCount"));
+        SearchResultDTO result = bookService.searchBook(pageMaker.getKeyword(), pageMaker.getPage());
+        pageMaker.setTotalCount(result.getTotalCount());
         model.addAttribute("pageMaker", pageMaker);
-        model.addAttribute("list", map.get("list"));
+        model.addAttribute("list", result.getList());
     }
 
     @GetMapping("/detailBook")

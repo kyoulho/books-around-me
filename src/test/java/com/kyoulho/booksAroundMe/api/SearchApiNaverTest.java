@@ -6,13 +6,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 
 @SpringBootTest
-public class NaverSearchAPITest {
+public class SearchApiNaverTest {
     @Autowired
-    NaverSearchAPI naverSearchAPI;
+    SearchApiNaver searchAPINaver;
 
     @Test
     public void test(){
-       String result = naverSearchAPI.getBooksData("정주영",1 );
+       String result = searchAPINaver.getBooksData("정주영",1 );
         System.out.println(result);
     }
 

@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class NaverSearchAPI implements SearchAPI {
+public class SearchApiNaver implements SearchApi {
     private static final String CLIENT_ID = "jyHa96iNcbPZ07I2HCY0";
     private static final String CLIENT_SECRET = "6qCHcDzqu0";
 

@@ -1,24 +1,23 @@
 package com.kyoulho.booksAroundMe.service;
 
-import com.kyoulho.booksAroundMe.api.SearchAPI;
+import com.kyoulho.booksAroundMe.api.SearchApi;
 import com.kyoulho.booksAroundMe.dto.BookDTO;
+import com.kyoulho.booksAroundMe.dto.SearchResultDTO;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class BookServiceImpl implements BookService {
     @Autowired
-    private SearchAPI searchAPI;
+    private SearchApi searchAPI;
 
     @Override
-    public Map<String, Object> searchBook(String keyword, int page) {
+    public SearchResultDTO searchBook(String keyword, int page) {
         String jsonString = searchAPI.getBooksData(keyword, page);
         JSONObject jsonObject = new JSONObject(jsonString);
 
@@ -43,9 +42,6 @@ public class BookServiceImpl implements BookService {
 
             list.add(bookDTO);
         }
-        Map<String, Object> map = new HashMap<>();
-        map.put("totalCount", totalCount);
-        map.put("list", list);
-        return map;
+        return SearchResultDTO.builder().totalCount(totalCount).list(list).build();
     }
 }
