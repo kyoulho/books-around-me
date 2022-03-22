@@ -2,7 +2,9 @@ package com.kyoulho.booksAroundMe.service;
 
 import com.kyoulho.booksAroundMe.api.SearchApi;
 import com.kyoulho.booksAroundMe.dto.BookDTO;
+import com.kyoulho.booksAroundMe.dto.SearchRequestDTO;
 import com.kyoulho.booksAroundMe.dto.SearchResultDTO;
+import lombok.RequiredArgsConstructor;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
-    @Autowired
-    private SearchApi searchAPI;
+    private final SearchApi searchAPI;
 
     @Override
-    public SearchResultDTO searchBook(String keyword, int page) {
-        String jsonString = searchAPI.getBooksData(keyword, page);
+    public SearchResultDTO searchBook(SearchRequestDTO searchRequestDTO) {
+        String jsonString = searchAPI.getBooksData(searchRequestDTO.getKeyword(), searchRequestDTO.getPage());
         JSONObject jsonObject = new JSONObject(jsonString);
 
         JSONArray items = jsonObject.getJSONArray("items");
@@ -42,6 +44,6 @@ public class BookServiceImpl implements BookService {
 
             list.add(bookDTO);
         }
-        return SearchResultDTO.builder().totalCount(totalCount).list(list).build();
+        return new SearchResultDTO(list, totalCount, searchRequestDTO);
     }
 }
