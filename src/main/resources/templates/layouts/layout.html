@@ -1,132 +1,89 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <meta name="description" content=""/>
-    <meta name="author" content=""/>
-    <title>Book Around Me</title>
-    <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" th:href="@{/assets/favicon.ico}"/>
-    <!-- Bootstrap icons-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet"/>
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <link th:href="@{/css/styles.css}" rel="stylesheet"/>
-</head>
-<body>
-<!-- Navigation-->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" th:href="@{/}">BookAroundMe</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
-                class="navbar-toggler-icon"></span></button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4 visually-hidden">
-                <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/}">Home</a></li>
-                <li class="nav-item"><a class="nav-link " href="#!">About</a></li>
-                <li class="nav-item dropdown ">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">All Products</a></li>
-                        <li>
-                            <hr class="dropdown-divider"/>
-                        </li>
-                        <li><a class="dropdown-item" href="#!">Popular Items</a></li>
-                        <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <form class="d-flex visually-hidden">
-                <button class="btn btn-outline-dark" type="submit">
-                    <i class="bi bi-person-circle"></i>
-                    Login
-                    <span class="badge bg-dark text-white ms-1 rounded-pill"></span>
-                </button>
-            </form>
-        </div>
-    </div>
-</nav>
-<!-- Header-->
-<header class="bg-dark py-5" style="height: 200px">
-    <div class="container px-4 px-lg-5 my-auto">
-        <div class="text-center text-white ">
-            <h3 class="display-4 fw-bolder ">Let's find the book</h3>
-            <form id="search-form" th:action="@{/book/searchBook}">
-                <label>
-                    <input type="text" class="form-text" name="keyword" th:value="${param.get('keyword')}"/>
-                    <input type="hidden" name="page" value="1">
-                </label>
-                <button type="submit" class="btn btn-light">search</button>
-            </form>
-        </div>
-    </div>
-</header>
-<!-- Section-->
-<section class="py-5">
-    <div class="container px-4 px-lg-5 mt-5" style="min-height: 31vh">
-        <div th:if="${list!=null}"
-             class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-5 justify-content-center">
-            <div th:each="BookVO : ${list}" class="col mb-5">
-                <a th:href="@{/book/detailBook(isbn=${BookVO.isbn})}">
-                    <div class="card h-100">
-                        <!-- Product image-->
-                        <img class="card-img" style="height: 65%" th:src="${BookVO.imageSrc}" alt="..."/>
-                        <!-- Product details-->
-                        <div class="card-title text-center p-1 m-sm-auto m-sm-0">
-                            <h7 class="fst-normal" th:text="${BookVO.title}"></h7>
-                        </div>
-                        <hr>
-                        <div class="fst-normal text-center">
-                            <h7 th:text="${'저자: '+BookVO.author}"></h7>
-                            <br>
-                            <h7 th:text="${'출판사: '+BookVO.publisher}"></h7>
-                            <br>
-                            <h7 th:text="${'가격: '+BookVO.price+ '원'}"></h7>
-                            <br>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <ul class="pagination">
-                            <li th:if="${pageMaker.prev}" class="page-item"><a class="page-link"
-                                                                               th:href="@{searchBook(keyword=${param.get('keyword')},page=${pageMaker.startPage-pageMaker.displayPageNum})}">Prev</a>
+<th:block th:fragment="setContent(content)">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <meta name="description" content=""/>
+        <meta name="author" content=""/>
+        <title>Book Around Me</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" th:href="@{/assets/favicon.ico}"/>
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet"/>
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link th:href="@{/css/styles.css}" rel="stylesheet"/>
+    </head>
+    <body>
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" th:href="@{/}">BookAroundMe</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
+                    class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4 visually-hidden">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link " href="#!">About</a></li>
+                    <li class="nav-item dropdown ">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#!">All Products</a></li>
+                            <li>
+                                <hr class="dropdown-divider"/>
                             </li>
-                            <th:block th:each="num: ${#numbers.sequence(pageMaker.startPage,pageMaker.endPage)}">
-                                <li class="page-item"><a class="page-link" th:text="${num}"
-                                                         th:href="@{searchBook(keyword=${param.get('keyword')},page=${num})}"></a></li>
-                            </th:block>
-                            <li th:if="${pageMaker.next}" class="page-item"><a class="page-link"
-                                                                               th:href="@{searchBook(keyword=${param.get('keyword')},page=${pageMaker.endPage+1})}">Next</a>
-                            </li>
+                            <li><a class="dropdown-item" href="#!">Popular Items</a></li>
+                            <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
                         </ul>
-                    </div>
-                </div>
+                    </li>
+                </ul>
+                <form class="d-flex visually-hidden">
+                    <button class="btn btn-outline-dark" type="submit">
+                        <i class="bi bi-person-circle"></i>
+                        Login
+                        <span class="badge bg-dark text-white ms-1 rounded-pill"></span>
+                    </button>
+                </form>
             </div>
         </div>
-    </div>
-</section>
-<!-- Footer-->
-<footer class="py-5 bg-dark">
-    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Books Around Me 2022</p></div>
-</footer>
-<!-- Bootstrap core JS-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Core theme JS-->
-<script src="/js/scripts.js"></script>
-<script>
-    let searchFromInput = document.querySelector("#search-form input[name=keyword]")
-    let searchFormBtn = document.querySelector("#search-form  button");
+    </nav>
+    <!-- Header-->
+    <header class="bg-dark py-5" style="height: 200px">
+        <div class="container px-4 px-lg-5 my-auto">
+            <div class="text-center text-white ">
+                <h3 class="display-4 fw-bolder ">Let's find the book</h3>
+                <form id="search-form" th:action="@{/book/searchBook}">
+                    <input type="hidden" name="page" value="1"/>
+                    <label>
+                        <input type="text" class="form-text" name="keyword" th:value="${result != null ? result.keyword : ''}"/>
+                    </label>
+                    <button type="submit" class="btn btn-light">search</button>
+                </form>
+            </div>
+        </div>
+    </header>
+    <!-- Section-->
+    <th:block th:replace="${content}"/>
+    <!-- Footer-->
+    <footer class="py-5 bg-dark">
+        <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Books Around Me 2022</p></div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script th:src="@{/js/scripts.js}"></script>
+    <script>
+        let searchFromInput = document.querySelector("#search-form input[name=keyword]")
+        let searchFormBtn = document.querySelector("#search-form  button");
 
-    searchFormBtn.addEventListener("click", function (event) {
-        if (searchFromInput.value == null || searchFromInput.value === "") {
-            event.preventDefault();
-        }
-    });
-</script>
-</body>
+        searchFormBtn.addEventListener("click", function (event) {
+            if (searchFromInput.value == null || searchFromInput.value === "") {
+                event.preventDefault();
+            }
+        });
+    </script>
+    </body>
+</th:block>
 </html>

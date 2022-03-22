@@ -26,6 +26,7 @@ public class SearchResultDTO {
     }
 
     private void makePageList(SearchRequestDTO searchRequestDTO) {
+        this.keyword = searchRequestDTO.getKeyword();
         this.page = searchRequestDTO.getPage();
         this.size = searchRequestDTO.getSize();
         this.totalPage = (int) Math.ceil(totalCount / 10.0);
