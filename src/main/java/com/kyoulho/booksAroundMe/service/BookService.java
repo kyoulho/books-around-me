@@ -1,8 +1,8 @@
 package com.kyoulho.booksAroundMe.service;
 
-import com.kyoulho.booksAroundMe.dto.SearchRequestDTO;
-import com.kyoulho.booksAroundMe.dto.SearchResultDTO;
+import com.kyoulho.booksAroundMe.dto.BookRequestDTO;
+import com.kyoulho.booksAroundMe.dto.BookResultDTO;
 
 public interface BookService {
-    SearchResultDTO searchBook(SearchRequestDTO searchRequestDTO);
+    BookResultDTO searchBook(BookRequestDTO bookRequestDTO);
 }

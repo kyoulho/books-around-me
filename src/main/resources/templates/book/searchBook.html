@@ -3,11 +3,12 @@
 <th:block th:replace="~{/layouts/layout :: setContent(~{this::content})}">
 
     <th:block th:fragment="content">
+
         <section class="py-5">
-            <div class="container px-4 px-lg-5 mt-5" style="min-height: 31vh">
+            <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-5 justify-content-center">
                     <div th:each="BookVO : ${result.list}" class="col mb-5">
-                        <a th:href="@{/book/detailBook(isbn=${BookVO.isbn})}">
+                        <a th:href="@{/book/whichBook(isbn=${BookVO.isbn})}">
                             <div class="card h-100">
                                 <!-- Product image-->
                                 <img class="card-img" style="height: 65%" th:src="${BookVO.imageSrc}" alt="..."/>
@@ -31,14 +32,17 @@
                         <div class="row">
                             <div class="col">
                                 <ul class="pagination">
-                                    <li th:if="${result.prev}" class="page-item"><a class="page-link"
-                                                                                    th:href="@{searchBook(keyword=${result.keyword},page=${result.start-result.size})}">Prev</a>
+                                    <li class="page-item " th:if="${result.prev}">
+                                        <a class="page-link "
+                                           th:href="@{searchBook(keyword=${result.keyword},page=${result.start-result.size})}">Prev</a>
                                     </li>
-                                    <th:block th:each="num: ${#numbers.sequence(result.start,result.end)}">
-                                        <li class="page-item"><a class="page-link" th:text="${num}"
-                                                                 th:href="@{searchBook(keyword= ${result.keyword} , page= ${num} )}"></a>
-                                        </li>
-                                    </th:block>
+
+                                    <li th:class=" 'page-item ' + ${result.page == page ? 'active': ''} "
+                                        th:each="page : ${result.pageList}">
+                                        <a class="page-link"
+                                           th:href="@{searchBook(keyword= ${result.keyword} , page= ${page} )}">[[${page}]]</a>
+                                    </li>
+
                                     <li th:if="${result.next}" class="page-item"><a class="page-link"
                                                                                     th:href="@{searchBook(keyword=${result.keyword},page=${result.end+1})}">Next</a>
                                     </li>
@@ -49,5 +53,6 @@
                 </div>
             </div>
         </section>
+        <script th:src="@{/js/index.js}"></script>
     </th:block>
 </th:block>

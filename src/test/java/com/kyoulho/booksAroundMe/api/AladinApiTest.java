@@ -4,16 +4,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-
 @SpringBootTest
-public class SearchApiNaverTest {
+public class AladinApiTest {
     @Autowired
-    SearchApiNaver searchAPINaver;
+    private AladinApi api;
 
     @Test
-    public void test(){
-       String result = searchAPINaver.getBooksData("정주영",1 );
-        System.out.println(result);
+    public void urlTest(){
+        System.out.println(api.getStockJson("9788995379493"));;
     }
-
 }

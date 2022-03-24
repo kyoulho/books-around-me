@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layouts/layout :: setContent(~{this :: content})}">
+    <th:block th:fragment="content">
+        <section class="py-5">
+            <div class="container px-2 px-lg-2">
+
+            </div>
+            <div class="container px-2 px-lg-2">
+                <div class="row gx-4 gx-lg-5 justify-content-end">
+                    <div id="map" style="width:45vw;height:55vh;">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=66672b8a8419b942474e07ba9abeda18"></script>
+        <script>
+            var mapContainer = document.getElementById('map'); //지도르 표시할 div
+            var mapOptions = {
+                center: new kakao.maps.LatLng(37.57112146019719, 126.97774839413586),   //지도의 중심좌표
+                level: 4 // 지도의 확대 레벨
+            };
+
+            //지도 생성
+            var map = new kakao.maps.Map(mapContainer, mapOptions);
+
+
+            function locationLoadSuccess(pos) {
+                //현재 위치 받아오기
+                var currentPos = new kakao.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+
+                //지도 이동(기존 위치와 가깝다면 부드럽게 이동)
+                map.panTo(currentPos);
+
+            }
+
+            function locationLoadError(pos) {
+                alert("위치 정보를 가져오는데 실패했습니다.");
+            }
+
+            //위치 가져오기 버튼 클릭시
+            function getCurrentPos() {
+                navigator.geolocation.getCurrentPosition(locationLoadSuccess, locationLoadError);
+            }
+        </script>
+    </th:block>
+</th:block>

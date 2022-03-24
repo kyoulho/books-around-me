@@ -1,8 +1,7 @@
 package com.kyoulho.booksAroundMe.controller;
 
-import com.kyoulho.booksAroundMe.dto.PageMaker;
-import com.kyoulho.booksAroundMe.dto.SearchRequestDTO;
-import com.kyoulho.booksAroundMe.dto.SearchResultDTO;
+import com.kyoulho.booksAroundMe.dto.BookRequestDTO;
+import com.kyoulho.booksAroundMe.dto.BookResultDTO;
 import com.kyoulho.booksAroundMe.service.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -14,17 +13,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("book")
 @RequiredArgsConstructor
 public class BookController {
-
     private final BookService bookService;
 
+
     @GetMapping("/searchBook")
-    public void searchBook(SearchRequestDTO searchRequestDTO, Model model) {
-        SearchResultDTO result = bookService.searchBook(searchRequestDTO);
+    public void searchBook(BookRequestDTO bookRequestDTO, Model model) {
+        BookResultDTO result = bookService.searchBook(bookRequestDTO);
         model.addAttribute("result",result);
     }
 
-    @GetMapping("/detailBook")
-    public void detailBook() {
+    @GetMapping("/whichBook")
+    public void whichBook(Model model) {
 
     }
 

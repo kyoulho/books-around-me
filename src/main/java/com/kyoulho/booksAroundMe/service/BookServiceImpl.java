@@ -1,13 +1,12 @@
 package com.kyoulho.booksAroundMe.service;
 
-import com.kyoulho.booksAroundMe.api.SearchApi;
+import com.kyoulho.booksAroundMe.api.NaverApi;
 import com.kyoulho.booksAroundMe.dto.BookDTO;
-import com.kyoulho.booksAroundMe.dto.SearchRequestDTO;
-import com.kyoulho.booksAroundMe.dto.SearchResultDTO;
+import com.kyoulho.booksAroundMe.dto.BookRequestDTO;
+import com.kyoulho.booksAroundMe.dto.BookResultDTO;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,15 +15,16 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
-    private final SearchApi searchAPI;
+    private final NaverApi naverApi;
 
     @Override
-    public SearchResultDTO searchBook(SearchRequestDTO searchRequestDTO) {
-        String jsonString = searchAPI.getBooksData(searchRequestDTO.getKeyword(), searchRequestDTO.getPage());
+    public BookResultDTO searchBook(BookRequestDTO bookRequestDTO) {
+        String jsonString = naverApi.getBookJson(bookRequestDTO.getKeyword(), bookRequestDTO.getPage());
         JSONObject jsonObject = new JSONObject(jsonString);
 
-        JSONArray items = jsonObject.getJSONArray("items");
         int totalCount = (int) jsonObject.get("total");
+
+        JSONArray items = jsonObject.getJSONArray("items");
         List<BookDTO> list = new ArrayList<>();
 
         for (int i = 0; i < items.length(); i++) {
@@ -44,6 +44,6 @@ public class BookServiceImpl implements BookService {
 
             list.add(bookDTO);
         }
-        return new SearchResultDTO(list, totalCount, searchRequestDTO);
+        return new BookResultDTO(list, totalCount, bookRequestDTO);
     }
 }

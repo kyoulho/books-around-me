@@ -9,13 +9,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class SearchRequestDTO {
+public class BookRequestDTO {
     private int page;
     private int size;
     private String keyword;
 
 
-    public SearchRequestDTO(String keyword, int page){
+    public BookRequestDTO(String keyword, int page){
         this.keyword = keyword;
         this.page = page;
         this.size = 10;
