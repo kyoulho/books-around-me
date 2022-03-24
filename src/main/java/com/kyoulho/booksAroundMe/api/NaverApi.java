@@ -15,20 +15,35 @@ public class NaverApi implements Api {
     private static final String CLIENT_SECRET = "6qCHcDzqu0";
     private static final String API_URL = "https://openapi.naver.com/v1/search/[searchType].json?query=[query]&start=[start]";
 
-    public String getAddressJson(String storeName){
+    public String getJsonAddress(String storeName) {
         String query;
         String start = "1";
         query = URLEncoder.encode(storeName, StandardCharsets.UTF_8);
-        String requestUrl = API_URL.replace("[searchType]","local").replace("[query]", query).replace("[start]", start);
+        String requestUrl = API_URL.replace("[searchType]", "local")
+                .replace("[query]", query)
+                .replace("[start]", start);
         return getData(requestUrl);
     }
 
-    public String getBookJson(String keyword, int page) {
+    public String getJsonBookList(String keyword, int page) {
         String query;
         String start;
         query = URLEncoder.encode(keyword, StandardCharsets.UTF_8);
         start = (page - 1) * 10 + 1 + "";
-        String requestUrl = API_URL.replace("[searchType]","book").replace("[query]", query).replace("[start]", start);
+        String requestUrl = API_URL.replace("[searchType]", "book")
+                .replace("[query]", query)
+                .replace("[start]", start);
+        return getData(requestUrl);
+    }
+
+    public String getJsonBook(String isbn) {
+        String query;
+        String start = "1";
+        query = URLEncoder.encode(isbn, StandardCharsets.UTF_8);
+        String requestUrl = API_URL.replace("[searchType]", "book")
+                .replace("[query]", query)
+                .replace("[start]", start)
+                +"?d_isbn="+isbn;
         return getData(requestUrl);
     }
 

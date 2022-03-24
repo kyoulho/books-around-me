@@ -7,22 +7,22 @@
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-5 justify-content-center">
-                    <div th:each="BookVO : ${result.list}" class="col mb-5">
-                        <a th:href="@{/book/whichBook(isbn=${BookVO.isbn})}">
+                    <div th:each="BookDTO : ${result.list}" class="col mb-5">
+                        <a th:href="@{/book/whichBook(keyword=${result.keyword},page=${result.page},isbn=${BookDTO.isbn})}">
                             <div class="card h-100">
                                 <!-- Product image-->
-                                <img class="card-img" style="height: 65%" th:src="${BookVO.imageSrc}" alt="..."/>
+                                <img class="card-img" style="height: 65%" th:src="${BookDTO.imageSrc}" alt="..."/>
                                 <!-- Product details-->
                                 <div class="card-title text-center p-1 m-sm-auto m-sm-0">
-                                    <h7 class="fst-normal" th:text="${BookVO.title}"></h7>
+                                    <h7 class="fst-normal" th:text="${BookDTO.title}"></h7>
                                 </div>
                                 <hr>
                                 <div class="fst-normal text-center">
-                                    <h7 th:text="${'저자: '+BookVO.author}"></h7>
+                                    <h7 th:text="${'저자: '+BookDTO.author}"></h7>
                                     <br>
-                                    <h7 th:text="${'출판사: '+BookVO.publisher}"></h7>
+                                    <h7 th:text="${'출판사: '+BookDTO.publisher}"></h7>
                                     <br>
-                                    <h7 th:text="${'가격: '+BookVO.price+ '원'}"></h7>
+                                    <h7 th:text="${'가격: '+BookDTO.price+ '원'}"></h7>
                                     <br>
                                 </div>
                             </div>

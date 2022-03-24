@@ -11,13 +11,19 @@ public class NaverApiTest {
     NaverApi naverApi;
 
     @Test
-    public void bookTest(){
-       String result = naverApi.getBookJson("정주영",1 );
+    public void getBookListTest(){
+       String result = naverApi.getJsonBookList("정주영",1 );
         System.out.println(result);
     }
     @Test
     public void localTest(){
-        String result = naverApi.getAddressJson("알라딘_건대점");
+        String result = naverApi.getJsonAddress("알라딘_건대점");
         System.out.println(result);
+    }
+
+    @Test
+    public void getBookTest(){
+        System.out.println(naverApi.getJsonBook("9791166815782"));
+
     }
 }

@@ -1,5 +1,13 @@
 package com.kyoulho.booksAroundMe.dto;
 
-public class StoreRequestDTO {
+import lombok.*;
 
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+public class StoreRequestDTO {
+    private String keyword;
+    private int page;
+    private String isbn;
 }

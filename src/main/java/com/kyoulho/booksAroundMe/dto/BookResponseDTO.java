@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Data
-public class BookResultDTO {
+public class BookResponseDTO {
     private List<BookDTO> list;
     private String keyword;
     private int totalCount;
@@ -18,14 +18,12 @@ public class BookResultDTO {
     private int start, end;
     private List<Integer> pageList;
 
-    public BookResultDTO(List<BookDTO> list, int totalCount, BookRequestDTO bookRequestDTO) {
+    public BookResponseDTO(List<BookDTO> list, int totalCount) {
         this.list = list;
         this.totalCount = Math.min(totalCount, 1000);
-        makePageList(bookRequestDTO);
-
     }
 
-    private void makePageList(BookRequestDTO bookRequestDTO) {
+    public void makePageList(BookRequestDTO bookRequestDTO) {
         this.keyword = bookRequestDTO.getKeyword();
         this.page = bookRequestDTO.getPage();
         this.size = bookRequestDTO.getSize();

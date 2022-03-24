@@ -35,10 +35,10 @@
             <div class="text-center text-white ">
                 <h3 class="display-5 fw-bolder ">Let's find the book</h3>
                 <form id="search-form" th:action="@{/book/searchBook}">
-                    <input type="hidden" name="page" value="1"/>
                     <label>
                         <input type="text" class="form-text" name="keyword" th:value="${result != null ? result.keyword : ''}"/>
                     </label>
+                    <input type="hidden" name="page" value="1"/>
                     <button type="submit" class="btn btn-light">search</button>
                 </form>
             </div>

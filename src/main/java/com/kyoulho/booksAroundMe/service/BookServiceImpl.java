@@ -1,9 +1,7 @@
 package com.kyoulho.booksAroundMe.service;
 
 import com.kyoulho.booksAroundMe.api.NaverApi;
-import com.kyoulho.booksAroundMe.dto.BookDTO;
-import com.kyoulho.booksAroundMe.dto.BookRequestDTO;
-import com.kyoulho.booksAroundMe.dto.BookResultDTO;
+import com.kyoulho.booksAroundMe.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -18,8 +16,8 @@ public class BookServiceImpl implements BookService {
     private final NaverApi naverApi;
 
     @Override
-    public BookResultDTO searchBook(BookRequestDTO bookRequestDTO) {
-        String jsonString = naverApi.getBookJson(bookRequestDTO.getKeyword(), bookRequestDTO.getPage());
+    public BookResponseDTO searchBook(String keyword, int page) {
+        String jsonString = naverApi.getJsonBookList(keyword, page);
         JSONObject jsonObject = new JSONObject(jsonString);
 
         int totalCount = (int) jsonObject.get("total");
@@ -44,6 +42,24 @@ public class BookServiceImpl implements BookService {
 
             list.add(bookDTO);
         }
-        return new BookResultDTO(list, totalCount, bookRequestDTO);
+        return new BookResponseDTO(list, totalCount);
     }
+
+    @Override
+    public BookDTO getBookDTO(String isbn) {
+        final NaverApi naverApi = new NaverApi();
+        String jsonString = naverApi.getJsonBook(isbn);
+        JSONObject jsonObject = new JSONObject(jsonString);
+        JSONArray items = jsonObject.getJSONArray("items");
+        JSONObject item = items.getJSONObject(0);
+        String title = item.getString("title");
+        String author = item.getString("author");
+        String imageSrc = item.getString("image").replace("type=m1", "");
+        String price = item.getString("author");
+        String publisher = item.getString("publisher");
+
+        return BookDTO.builder().isbn(isbn).title(title).author(author).imageSrc(imageSrc).price(price).publisher(publisher)
+                .build();
+    }
+
 }

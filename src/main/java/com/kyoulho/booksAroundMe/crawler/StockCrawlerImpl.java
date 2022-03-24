@@ -30,7 +30,7 @@ public class StockCrawlerImpl {
 
     // 네이버 검색 속도 제한으로 쓰레드 슬립을 사용할 것을 권장
     public String getAddress(String storeName) {
-        String jsonString = naverApi.getAddressJson(storeName);
+        String jsonString = naverApi.getJsonAddress(storeName);
         try {
             Thread.sleep(200);
         } catch (InterruptedException e) {

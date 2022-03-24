@@ -13,4 +13,9 @@ public class StoreServiceTest {
     public void listTest(){
         service.getStoreStockData("9791166815782");
     }
+
+    @Test
+    public void listTest2(){
+        System.out.println(service.getStoreStockData("9791166815782"));
+    }
 }
