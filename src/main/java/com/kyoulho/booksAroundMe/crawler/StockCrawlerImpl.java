@@ -54,7 +54,7 @@ public class StockCrawlerImpl {
         StringTokenizer storeNames = new StringTokenizer(document.select(query).select("th").text(), " ");
         StringTokenizer stockCounts = new StringTokenizer(document.select(query).select("td a").text(), " ");
         while (storeNames.hasMoreTokens()) {
-            String storeName = "교보문고_" + storeNames.nextToken();
+            String storeName = "교보문고 " + storeNames.nextToken();
             int stock = Integer.parseInt(stockCounts.nextToken());
             StoreDTO dto = StoreDTO.builder().storeName(storeName).stock(stock).build();
             list.add(dto);
@@ -71,7 +71,7 @@ public class StockCrawlerImpl {
         List<StoreDTO> list = new ArrayList<>();
         for (int i = 0; i < stores.length(); i++) {
             JSONObject store = stores.getJSONObject(i);
-            String storeName = "알라딘_" + store.getString("offName");
+            String storeName = "알라딘 " + store.getString("offName");
             String _link = store.getString("link");
             String link = _link.replace("amp;", "");
 

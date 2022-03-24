@@ -1,5 +1,6 @@
 package com.kyoulho.booksAroundMe.mapper;
 
+import com.kyoulho.booksAroundMe.dto.StoreDTO;
 import com.kyoulho.booksAroundMe.entity.StoreEntity;
 import org.apache.catalina.Store;
 import org.apache.ibatis.annotations.*;

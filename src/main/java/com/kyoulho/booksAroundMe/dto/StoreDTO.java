@@ -15,10 +15,9 @@ public class StoreDTO {
     private String address;
     private double latitude;
     private double longitude;
-    private String bookTitle;
     private int stock;
 
-    public void setEntity(StoreEntity entity){
+    public void setData(StoreEntity entity){
         this.address = entity.getAddress();
         this.latitude = entity.getLatitude();
         this.longitude = entity.getLongitude();

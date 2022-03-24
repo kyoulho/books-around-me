@@ -15,32 +15,19 @@ public class DBUpdateController {
     private StockCrawlerImpl stockCrawler;
     @Autowired
     private StoreMapper mapper;
-     // 나중을 위해 남겨둘 것
+
     @Test
-    public void setDBAddress() {
+    public void setDatabase() {
         List<StoreEntity> list = mapper.selectAllStore();
         for (StoreEntity entity : list) {
             String storeName = entity.getStoreName();
             String address = stockCrawler.getAddress(storeName);
             entity.setAddress(address);
-            mapper.setAddress(entity);
-            try {
-                Thread.sleep(200);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-    //나중을 위해 남겨 둘 것
-    @Test
-    public void setDBCity() {
-        List<StoreEntity> list = mapper.selectAllStore();
-        for (StoreEntity entity : list) {
-            String address = entity.getAddress();
-            String city = address.substring(0, address.indexOf("시") + 1);
-            entity.setCity(city);
             mapper.setCity(entity);
-            System.out.println(entity.getStoreName());
+            mapper.setAddress(entity);
+            System.out.println(storeName+ " 업데이트 완료");
         }
     }
+
+
 }
