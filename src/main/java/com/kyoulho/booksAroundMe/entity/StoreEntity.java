@@ -8,5 +8,6 @@ public class StoreEntity {
     private String address;
     private double latitude;
     private double longitude;
+    private double distance;
 
 }

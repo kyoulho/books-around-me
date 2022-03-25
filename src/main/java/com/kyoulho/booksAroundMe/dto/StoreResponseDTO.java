@@ -12,11 +12,17 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class StoreResponseDTO {
-    private List<StoreDTO> seoul;
-    private List<StoreDTO> metropolitan;
-    private List<StoreDTO> province;
+    private List<StoreDTO> list;
     private BookDTO bookDTO;
     private String keyword;
     private int page;
+    private String latitude;
+    private String longitude;
 
+    public void setResponse(StoreRequestDTO requestDTO) {
+        this.keyword = requestDTO.getKeyword();
+        this.page = requestDTO.getPage();
+        this.latitude = requestDTO.getLatitude();
+        this.longitude = requestDTO.getLongitude();
+    }
 }

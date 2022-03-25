@@ -1,16 +1,25 @@
 package com.kyoulho.booksAroundMe.mapper;
 
-import com.kyoulho.booksAroundMe.dto.StoreDTO;
 import com.kyoulho.booksAroundMe.entity.StoreEntity;
-import org.apache.catalina.Store;
+import lombok.extern.log4j.Log4j2;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
 @Mapper
 public interface StoreMapper {
-    @Select("SELECT * FROM store_tbl WHERE storeName like #{storeName}")
-    public StoreEntity selectStore(@Param("storeName") String storeName);
+    @Select("SELECT * ,(" +
+                "6371 * acos (" +
+                "cos ( radians(latitude) )" +
+                "* cos( radians(#{lat}) )" +
+                "* cos( radians(#{lng}) - radians(longitude))" +
+                "+ sin( radians(latitude) )" +
+                "* sin( radians(#{lat}))" +
+                ")" +
+            ") AS distance" +
+            " FROM store_tbl" +
+            " WHERE storeName like #{storeName}")
+    public StoreEntity selectStore(@Param("storeName") String storeName, @Param("lat")double latitude, @Param("lng")double longitude);
 
     @Select("SELECT * FROM store_tbl")
     public List<StoreEntity> selectAllStore();

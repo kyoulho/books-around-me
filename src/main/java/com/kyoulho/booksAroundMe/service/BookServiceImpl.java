@@ -32,12 +32,17 @@ public class BookServiceImpl implements BookService {
                 isbn = isbn.substring(isbn.indexOf(" ") + 1);
             }
             String title = item.getString("title").replace("<b>", "").replace("</b>", "");
+            String subTitle = "";
+            if (title.contains("(")) {
+                subTitle = title.substring(title.indexOf("("),title.lastIndexOf(")")+1);
+                title = title.substring(0, title.indexOf("("));
+            }
             String author = item.getString("author").replace("<b>", "").replace("</b>", "");
             String imageSrc = item.getString("image").replace("type=m1", "");
             String price = item.getString("author").replace("<b>", "").replace("</b>", "");
-            String publisher = item.getString("publisher");
+            String publisher = item.getString("publisher").replace("<b>", "").replace("</b>", "");
 
-            BookDTO bookDTO = BookDTO.builder().isbn(isbn).title(title).author(author).imageSrc(imageSrc).price(price).publisher(publisher)
+            BookDTO bookDTO = BookDTO.builder().isbn(isbn).title(title).subTitle(subTitle).author(author).imageSrc(imageSrc).price(price).publisher(publisher)
                     .build();
 
             list.add(bookDTO);
@@ -53,12 +58,17 @@ public class BookServiceImpl implements BookService {
         JSONArray items = jsonObject.getJSONArray("items");
         JSONObject item = items.getJSONObject(0);
         String title = item.getString("title");
+        String subTitle = "";
+        if (title.contains("(")) {
+            subTitle = title.substring(title.indexOf("("),title.lastIndexOf(")")+1);
+            title = title.substring(0, title.indexOf("("));
+        }
         String author = item.getString("author");
         String imageSrc = item.getString("image").replace("type=m1", "");
         String price = item.getString("author");
         String publisher = item.getString("publisher");
 
-        return BookDTO.builder().isbn(isbn).title(title).author(author).imageSrc(imageSrc).price(price).publisher(publisher)
+        return BookDTO.builder().isbn(isbn).title(title).subTitle(subTitle).author(author).imageSrc(imageSrc).price(price).publisher(publisher)
                 .build();
     }
 

@@ -2,7 +2,6 @@ package com.kyoulho.booksAroundMe.service;
 
 import com.kyoulho.booksAroundMe.crawler.StockCrawlerImpl;
 import com.kyoulho.booksAroundMe.dto.StoreDTO;
-import com.kyoulho.booksAroundMe.dto.StoreRequestDTO;
 import com.kyoulho.booksAroundMe.dto.StoreResponseDTO;
 import com.kyoulho.booksAroundMe.entity.StoreEntity;
 import com.kyoulho.booksAroundMe.mapper.StoreMapper;
@@ -10,7 +9,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -18,28 +19,31 @@ public class StoreServiceImpl implements StoreService {
     private final StockCrawlerImpl stockCrawlerImpl;
     private final StoreMapper storeMapper;
 
-    public StoreResponseDTO getStoreStockData(final String isbn) {
-        List<StoreDTO> seoul = new ArrayList<>();
-        List<StoreDTO> metropolitan = new ArrayList<>();
-        List<StoreDTO> province = new ArrayList<>();
-        List<StoreDTO> list = stockCrawlerImpl.getStoreStockList(isbn);
-        for (StoreDTO dto : list) {
+    @Override
+    public StoreResponseDTO getStoreStockData(final String isbn, final double latitude, final double longitude) {
+        List<StoreDTO> _list = stockCrawlerImpl.getStoreStockList(isbn);
+        List<StoreDTO> list = new ArrayList<>();
+        for (StoreDTO dto : _list) {
             if (dto.getStock() > 0) {
                 String storeName = "%" + dto.getStoreName() + "%";
-                StoreEntity entity = storeMapper.selectStore(storeName);
-                dto.setData(entity);
-
-                String address = dto.getAddress();
-                if (address.contains("서울특별시")) {
-                    seoul.add(dto);
-                } else if (address.contains("경기도") || address.contains("인천광역시")) {
-                    metropolitan.add(dto);
-                } else {
-                    province.add(dto);
+                StoreEntity entity = storeMapper.selectStore(storeName, latitude, longitude);
+                if (entity != null && entity.getDistance() <= 10) {
+                    dto.setData(entity);
+                    list.add(dto);
                 }
             }
         }
-        return StoreResponseDTO.builder().seoul(seoul).metropolitan(metropolitan).province(province).build();
+        list = list.stream().sorted(new Comparator<StoreDTO>() {
+            @Override
+            public int compare(StoreDTO o1, StoreDTO o2) {
+                if (o1.getDistance() > o2.getDistance()) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            }
+        }).limit(10).collect(Collectors.toList());
+        System.out.println(list);
+        return StoreResponseDTO.builder().list(list).build();
     }
-
 }

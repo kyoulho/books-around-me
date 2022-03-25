@@ -4,6 +4,5 @@ import com.kyoulho.booksAroundMe.dto.StoreRequestDTO;
 import com.kyoulho.booksAroundMe.dto.StoreResponseDTO;
 
 public interface StoreService {
-    public StoreResponseDTO getStoreStockData(final String isbn);
-
+    public StoreResponseDTO getStoreStockData(String isbn, double latitude, double longitude);
 }

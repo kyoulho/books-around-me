@@ -4017,7 +4017,7 @@ textarea.form-control-lg {
 
 .nav-fill .nav-item .nav-link,
 .nav-justified .nav-item .nav-link {
-  width: 100%;
+  width: auto;
 }
 
 .tab-content > .tab-pane {
@@ -7008,7 +7008,7 @@ textarea.form-control-lg {
 }
 
 .flex-fill {
-  flex: 1 1 auto !important;
+  flex: 0.5 1 auto !important;
 }
 
 .flex-row {

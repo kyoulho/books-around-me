@@ -2,48 +2,105 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <th:block th:replace="~{/layouts/layout :: setContent(~{this :: content})}">
     <th:block th:fragment="content">
+
         <section class="py-5">
-            <div class="container px-2 px-lg-2">
-            <ul>
-            </ul>
-            </div>
-            <div class="container px-2 px-lg-2">
-                <div class="row gx-4 gx-lg-5 justify-content-end">
-                    <div id="map" style="width:45vw;height:55vh;">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 ">
+
+                    <div class="col-md-6" style="float:left;">
+                        <div id="map" style="min-width: 30vw; min-height: 70vh"></div>
+                    </div>
+
+                    <div class="col-md-6" style=" float:right; min-height: 60vh;">
+                        <div class="card" style="border: none">
+                            <div class="card-body align-items-center">
+                                <img th:src="${result.bookDTO.imageSrc}" style="height: 10vh; width: auto">
+                                <span>
+                                  [[${result.bookDTO.title}]] [[${result.bookDTO.author + " 저"}]]
+                                </span>
+                            </div>
+                        </div>
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-bs-toggle="tab" href="#distance">10km 이내 매장</a>
+                            </li>
+                        </ul>
+                        <div id="myTabContent" class="tab-content" style="min-height: 16rem">
+                            <div class="tab-pane fade active show" id="distance">
+                                <div class="list-group">
+                                    <th:block th:each="dto : ${result.list}">
+                                        <a th:href="${dto.latitude + ',' + dto.longitude}" class="list-group-item list-group-item-action">
+                                            <div style="float:left; width: 300px;">[[${dto.storeName}]]</div>
+                                            <div style="float:left; width: 100px;">[[${ "약 "+#numbers.formatInteger(dto.distance,1) + "km"}]]</div>
+                                            <div style="float:left;">[[${ "재고 : " + dto.stock + "부"}]]</div>
+                                        </a>
+                                    </th:block>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=66672b8a8419b942474e07ba9abeda18"></script>
-        <script>
-            var mapContainer = document.getElementById('map'); //지도르 표시할 div
-            var mapOptions = {
-                center: new kakao.maps.LatLng(37.57112146019719, 126.97774839413586),   //지도의 중심좌표
+        <script th:inline="javascript">
+            let curLat = [[${result.latitude}]];
+            let curLng = [[${result.longitude}]];
+
+            let mapContainer = document.getElementById('map'); //지도르 표시할 div
+            let curPos = new kakao.maps.LatLng(curLat, curLng);
+
+            let mapOptions = {
+                center: curPos,   //지도의 중심좌표
                 level: 4 // 지도의 확대 레벨
             };
-
             //지도 생성
-            var map = new kakao.maps.Map(mapContainer, mapOptions);
+            let map = new kakao.maps.Map(mapContainer, mapOptions);
 
+            /* 마커 등록 및 지도 이동*/
 
-            function locationLoadSuccess(pos) {
-                //현재 위치 받아오기
-                var currentPos = new kakao.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+            // 매장 리스트
+            let list = [[${result.list}]];
+            // 매장 포인트들
+            let points = [];
+            list.forEach(function (dto) {
+                let lat = dto.latitude;
+                let lng = dto.longitude;
+                let pos = new kakao.maps.LatLng(lat, lng);
+                points.push(pos);
+            })
 
-                //지도 이동(기존 위치와 가깝다면 부드럽게 이동)
-                map.panTo(currentPos);
+            let bounds = new kakao.maps.LatLngBounds();
 
+            let i, marker;
+            for (i = 0; i < points.length; i++) {
+                // 배열의 좌표들이 잘 보이게 마커를 지도에 추가합니다
+                marker = new kakao.maps.Marker({position: points[i]});
+                marker.setMap(map);
+
+                // LatLngBounds 객체에 좌표를 추가합니다
+                bounds.extend(points[i]);
             }
+            map.setBounds(bounds);
 
-            function locationLoadError(pos) {
-                alert("위치 정보를 가져오는데 실패했습니다.");
-            }
+            $(".list-group-item").on("click", function (event) {
+                event.preventDefault();
+                let pos = this.href;
+                let lat = pos.slice(pos.lastIndexOf('/') + 1, pos.lastIndexOf(','));
+                let lng = pos.slice(pos.lastIndexOf(",") + 1);
+                panTo(lat, lng);
+            })
 
-            //위치 가져오기 버튼 클릭시
-            function getCurrentPos() {
-                navigator.geolocation.getCurrentPosition(locationLoadSuccess, locationLoadError);
+            function panTo(lat, lng) {
+                // 이동할 위도 경도 위치를 생성합니다
+                var moveLatLon = new kakao.maps.LatLng(lat, lng);
+
+                // 지도 중심을 부드럽게 이동시킵니다
+                // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+                map.setCenter(moveLatLon);
             }
         </script>
+
     </th:block>
 </th:block>

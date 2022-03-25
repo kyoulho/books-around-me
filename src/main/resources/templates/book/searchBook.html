@@ -3,26 +3,46 @@
 <th:block th:replace="~{/layouts/layout :: setContent(~{this::content})}">
 
     <th:block th:fragment="content">
-
+        <script>
+            function getPos() {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    let lat = position.coords.latitude;
+                    let lng = position.coords.longitude;
+                    sessionStorage.setItem("lat", lat);
+                    sessionStorage.setItem("lng", lng);
+                }, (err) => {
+                });
+            }
+            getPos();
+        </script>
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-5 justify-content-center">
-                    <div th:each="BookDTO : ${result.list}" class="col mb-5">
-                        <a th:href="@{/book/whichBook(keyword=${result.keyword},page=${result.page},isbn=${BookDTO.isbn})}">
+                    <div th:each="dto : ${result.list}" class="col mb-5 bookCards">
+                        <a class="target" th:href="@{/book/whichBook(keyword=${result.keyword}, page=${result.page}, isbn=${dto.isbn})}">
+                            <form th:action="@{/book/whichBook}" method="get">
+                                <input type="hidden" name="keyword" th:value="${result.keyword}">
+                                <input type="hidden" name="page" th:value="${result.page}">
+                                <input type="hidden" name="isbn" th:value="${dto.isbn}">
+                                <input type="hidden" name="latitude">
+                                <input type="hidden" name="longitude">
+                            </form>
                             <div class="card h-100">
                                 <!-- Product image-->
-                                <img class="card-img" style="height: 65%" th:src="${BookDTO.imageSrc}" alt="..."/>
+                                <img class="card-img" style="height: 65%" th:src="${dto.imageSrc}" alt="..."/>
                                 <!-- Product details-->
                                 <div class="card-title text-center p-1 m-sm-auto m-sm-0">
-                                    <h7 class="fst-normal" th:text="${BookDTO.title}"></h7>
+                                    <h7 class="fst-normal" th:text="${dto.title}"></h7>
+                                    <br>
+                                    <h7 class="fst-normal" th:text="${dto.subTitle}"></h7>
                                 </div>
                                 <hr>
                                 <div class="fst-normal text-center">
-                                    <h7 th:text="${'저자: '+BookDTO.author}"></h7>
+                                    <h7 th:text="${'저자: '+dto.author}"></h7>
                                     <br>
-                                    <h7 th:text="${'출판사: '+BookDTO.publisher}"></h7>
+                                    <h7 th:text="${'출판사: '+dto.publisher}"></h7>
                                     <br>
-                                    <h7 th:text="${'가격: '+BookDTO.price+ '원'}"></h7>
+                                    <h7 th:text="${'가격: '+dto.price+ '원'}"></h7>
                                     <br>
                                 </div>
                             </div>
@@ -34,7 +54,7 @@
                                 <ul class="pagination">
                                     <li class="page-item " th:if="${result.prev}">
                                         <a class="page-link "
-                                           th:href="@{searchBook(keyword=${result.keyword},page=${result.start-result.size})}">Prev</a>
+                                           th:href="@{searchBook(keyword=${result.keyword},page=${result.start - result.size})}">Prev</a>
                                     </li>
 
                                     <li th:class=" 'page-item ' + ${result.page == page ? 'active': ''} "
@@ -54,5 +74,20 @@
             </div>
         </section>
         <script th:src="@{/js/index.js}"></script>
+        <script>
+            let lat = sessionStorage.getItem("lat");
+            let lng = sessionStorage.getItem("lng");
+
+            $(".target").on("click", function (event) {
+                event.preventDefault();
+                if (!lat || !lng) {
+                    getPos();
+                } else {
+                    $("input[name=latitude]").val(lat);
+                    $("input[name=longitude]").val(lng);
+                    $(this).children("form").submit();
+                }
+            });
+        </script>
     </th:block>
 </th:block>
