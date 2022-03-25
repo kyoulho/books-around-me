@@ -12,11 +12,12 @@
                     </div>
 
                     <div class="col-md-6" style=" float:right; min-height: 60vh;">
-                        <div class="card" style="border: none">
+                        <div class="card">
                             <div class="card-body align-items-center">
                                 <img th:src="${result.bookDTO.imageSrc}" style="height: 10vh; width: auto">
                                 <span>
-                                  [[${result.bookDTO.title}]] [[${result.bookDTO.author + " 저"}]]
+                                   [[${result.bookDTO.title}]]
+                                   저자: [[${result.bookDTO.author}]]
                                 </span>
                             </div>
                         </div>
