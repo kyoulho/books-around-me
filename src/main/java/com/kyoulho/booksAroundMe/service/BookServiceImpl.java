@@ -39,7 +39,7 @@ public class BookServiceImpl implements BookService {
             }
             String author = item.getString("author").replace("<b>", "").replace("</b>", "");
             String imageSrc = item.getString("image").replace("type=m1", "");
-            String price = item.getString("author").replace("<b>", "").replace("</b>", "");
+            String price = item.getString("price").replace("<b>", "").replace("</b>", "");
             String publisher = item.getString("publisher").replace("<b>", "").replace("</b>", "");
 
             BookDTO bookDTO = BookDTO.builder().isbn(isbn).title(title).subTitle(subTitle).author(author).imageSrc(imageSrc).price(price).publisher(publisher)
@@ -65,7 +65,7 @@ public class BookServiceImpl implements BookService {
         }
         String author = item.getString("author");
         String imageSrc = item.getString("image").replace("type=m1", "");
-        String price = item.getString("author");
+        String price = item.getString("price");
         String publisher = item.getString("publisher");
 
         return BookDTO.builder().isbn(isbn).title(title).subTitle(subTitle).author(author).imageSrc(imageSrc).price(price).publisher(publisher)

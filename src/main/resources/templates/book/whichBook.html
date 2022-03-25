@@ -22,11 +22,11 @@
                         </div>
                         <ul class="nav nav-tabs">
                             <li class="nav-item">
-                                <a class="nav-link active" data-bs-toggle="tab" href="#distance">10km 이내 매장</a>
+                                <a class="nav-link active" data-bs-toggle="tab" href="#near">20km 이내 매장</a>
                             </li>
                         </ul>
                         <div id="myTabContent" class="tab-content" style="min-height: 16rem">
-                            <div class="tab-pane fade active show" id="distance">
+                            <div class="tab-pane fade active show" id="near">
                                 <div class="list-group">
                                     <th:block th:each="dto : ${result.list}">
                                         <a th:href="${dto.latitude + ',' + dto.longitude}" class="list-group-item list-group-item-action">
@@ -70,19 +70,20 @@
                 let pos = new kakao.maps.LatLng(lat, lng);
                 points.push(pos);
             })
+            if (list.length > 0) {
+                let bounds = new kakao.maps.LatLngBounds();
 
-            let bounds = new kakao.maps.LatLngBounds();
+                let i, marker;
+                for (i = 0; i < points.length; i++) {
+                    // 배열의 좌표들이 잘 보이게 마커를 지도에 추가합니다
+                    marker = new kakao.maps.Marker({position: points[i]});
+                    marker.setMap(map);
 
-            let i, marker;
-            for (i = 0; i < points.length; i++) {
-                // 배열의 좌표들이 잘 보이게 마커를 지도에 추가합니다
-                marker = new kakao.maps.Marker({position: points[i]});
-                marker.setMap(map);
-
-                // LatLngBounds 객체에 좌표를 추가합니다
-                bounds.extend(points[i]);
+                    // LatLngBounds 객체에 좌표를 추가합니다
+                    bounds.extend(points[i]);
+                }
+                map.setBounds(bounds);
             }
-            map.setBounds(bounds);
 
             $(".list-group-item").on("click", function (event) {
                 event.preventDefault();

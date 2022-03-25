@@ -27,7 +27,7 @@ public class StoreServiceImpl implements StoreService {
             if (dto.getStock() > 0) {
                 String storeName = "%" + dto.getStoreName() + "%";
                 StoreEntity entity = storeMapper.selectStore(storeName, latitude, longitude);
-                if (entity != null && entity.getDistance() <= 10) {
+                if (entity != null && entity.getDistance() <= 20) {
                     dto.setData(entity);
                     list.add(dto);
                 }
@@ -43,7 +43,6 @@ public class StoreServiceImpl implements StoreService {
                 }
             }
         }).limit(10).collect(Collectors.toList());
-        System.out.println(list);
         return StoreResponseDTO.builder().list(list).build();
     }
 }

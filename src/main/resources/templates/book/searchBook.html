@@ -13,7 +13,12 @@
                 }, (err) => {
                 });
             }
-            getPos();
+
+            let lat = sessionStorage.getItem("lat");
+            let lng = sessionStorage.getItem("lng");
+            if (!lat || !lng) {
+                getPos();
+            }
         </script>
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
@@ -75,8 +80,7 @@
         </section>
         <script th:src="@{/js/index.js}"></script>
         <script>
-            let lat = sessionStorage.getItem("lat");
-            let lng = sessionStorage.getItem("lng");
+
 
             $(".target").on("click", function (event) {
                 event.preventDefault();
