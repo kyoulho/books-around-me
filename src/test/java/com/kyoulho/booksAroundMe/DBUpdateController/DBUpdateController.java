@@ -1,6 +1,6 @@
 package com.kyoulho.booksAroundMe.DBUpdateController;
 
-import com.kyoulho.booksAroundMe.crawler.StockCrawlerImpl;
+import com.kyoulho.booksAroundMe.util.StockCrawlerImpl;
 import com.kyoulho.booksAroundMe.entity.StoreEntity;
 import com.kyoulho.booksAroundMe.mapper.StoreMapper;
 import org.junit.jupiter.api.Test;

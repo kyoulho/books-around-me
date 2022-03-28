@@ -1,7 +1,5 @@
-package com.kyoulho.booksAroundMe.crawler;
+package com.kyoulho.booksAroundMe.util;
 
-import com.kyoulho.booksAroundMe.api.AladinApi;
-import com.kyoulho.booksAroundMe.api.NaverApi;
 import com.kyoulho.booksAroundMe.dto.StoreDTO;
 import org.json.JSONArray;
 import org.json.JSONObject;

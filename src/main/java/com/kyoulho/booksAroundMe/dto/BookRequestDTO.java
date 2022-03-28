@@ -15,7 +15,7 @@ public class BookRequestDTO {
     private String keyword;
 
 
-    public BookRequestDTO(String keyword, int page){
+    public BookRequestDTO(String keyword, int page) {
         this.keyword = keyword;
         this.page = page;
         this.size = 10;

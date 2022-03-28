@@ -1,12 +1,10 @@
 package com.kyoulho.booksAroundMe.crawler;
 
-import com.kyoulho.booksAroundMe.entity.StoreEntity;
 import com.kyoulho.booksAroundMe.mapper.StoreMapper;
+import com.kyoulho.booksAroundMe.util.StockCrawlerImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.List;
 
 @SpringBootTest
 public class StockCrawlerTest {

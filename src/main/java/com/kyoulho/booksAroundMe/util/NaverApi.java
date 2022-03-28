@@ -1,4 +1,4 @@
-package com.kyoulho.booksAroundMe.api;
+package com.kyoulho.booksAroundMe.util;
 
 import org.springframework.stereotype.Component;
 

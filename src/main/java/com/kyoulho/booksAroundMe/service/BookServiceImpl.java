@@ -1,6 +1,6 @@
 package com.kyoulho.booksAroundMe.service;
 
-import com.kyoulho.booksAroundMe.api.NaverApi;
+import com.kyoulho.booksAroundMe.util.NaverApi;
 import com.kyoulho.booksAroundMe.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONArray;

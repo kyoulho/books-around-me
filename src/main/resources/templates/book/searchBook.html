@@ -16,6 +16,7 @@
 
             let lat = sessionStorage.getItem("lat");
             let lng = sessionStorage.getItem("lng");
+            console.log(lat,lng);
             if (!lat || !lng) {
                 getPos();
             }
@@ -82,9 +83,10 @@
         <script>
 
 
-            $(".target").on("click", function (event) {
+            $(".target").on("click", async function (event) {
                 event.preventDefault();
                 if (!lat || !lng) {
+                    alert("위치 정보를 가져오고 있어요.")
                     getPos();
                 } else {
                     $("input[name=latitude]").val(lat);
