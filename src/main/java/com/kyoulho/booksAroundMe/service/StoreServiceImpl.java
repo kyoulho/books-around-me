@@ -26,7 +26,7 @@ public class StoreServiceImpl implements StoreService {
                 .peek(dto -> {
                     String storeName = "%" + dto.getStoreName() + "%";
                     StoreEntity entity = storeMapper.selectStore(storeName, latitude, longitude);
-                    if (entity != null && entity.getDistance() <= 50) {
+                    if (entity != null && entity.getDistance() <= 20) {
                         dto.setData(entity);
                     }
                 }).filter(dto -> dto.getDistance() != 0).sorted(new Comparator<StoreDTO>() {

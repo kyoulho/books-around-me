@@ -42,7 +42,7 @@ public class StockCrawlerImpl {
 
 
     private List<StoreDTO> getKyoboStockData(final String isbn) {
-        String KYOBO_URL = "https://www.kyobobook.co.kr/prom/2013/general/StoreStockTable.jsp?barcode=isbn&ejkgb=KOR";
+        String KYOBO_URL = "https://www.kyobobook.co.kr/prom/2013/general/StoreStockTable.jsp?barcode=isbn&ejkgb=KOR&jo=24";
         String requestUrl = KYOBO_URL.replace("isbn", isbn);
         Document document = getDocument(requestUrl);
 
