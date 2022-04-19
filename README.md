@@ -1,7 +1,7 @@
 # booksAroundMe
 # 목차
-* [개발 환경](##개발_환경)
-* [사용 기술](##사용_기술)
+* [개발 환경](## 개발_환경)
+* [사용 기술](## 사용_기술)
 * 시스템 아키텍처
 * 프로젝트 목적
 * 프로젝트 개요
@@ -28,7 +28,7 @@
 <li>MariaDB</li>
 </ul>
 
-##주요 라이브러리
+## 주요 라이브러리
 <ul>
 <li>Lombok</li>
 <li>KakaoMap</li>
@@ -36,8 +36,8 @@
 <li>Aladin-api</li>
 </ul>
 
-##시스템 아키텍처
+## 시스템 아키텍처
 <img src="src/main/resources/static/images/attach1.png">
 
-##데이터베이스 테이블
+## 데이터베이스 테이블
 <img src="src/main/resources/static/images/attach2.png">
