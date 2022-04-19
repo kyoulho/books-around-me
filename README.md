@@ -1,6 +1,8 @@
-# booksAroundMe
+#booksAroundMe
+#목차
+<li><a href="#개발환경">개발환경</a></li>
 
-<h5>개발 환경</h2>
+#<h2>개발 환경</h2>
 <ul>
 <li>intelliJ</li>
 <li>Dbeaver</li>
@@ -38,7 +40,7 @@
 <img src="src/main/resources/static/images/attach1.png">
 
 <h5>데이터베이스 테이블</h5>
-![](src/main/resources/static/images/attach2.png)
+<img src="src/main/resources/static/images/attach2.png">
 
-<h5>WAS 아키텍처 및 패키지 구조</h5>
+<h5>WAS 아키텍처및 패키지 구조</h5>
 <li>계층형 아키텍처</li>
