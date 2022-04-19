@@ -17,6 +17,7 @@ import java.util.StringTokenizer;
 @RequiredArgsConstructor
 public class StockCrawler {
     private final NaverApi naverApi;
+    private final AladinApi aladinApi;
 
     public List<StoreDTO> getStoreStockList(final String isbn) {
         List<StoreDTO> StoreStockList = new ArrayList<>();
@@ -26,7 +27,7 @@ public class StockCrawler {
         return StoreStockList;
     }
 
-    // 네이버 검색 속도 제한으로 쓰레드 슬립을 사용할 것을 권장
+    // 네이버 검색 속도 제한으로 쓰레드 슬립을 사용
     public String getAddress(String storeName) {
         String jsonString = naverApi.getJsonAddress(storeName);
         try {
@@ -61,8 +62,7 @@ public class StockCrawler {
     }
 
     private List<StoreDTO> getAladinStockData(final String isbn) {
-        AladinApi api = new AladinApi();
-        String jsonString = api.getStockJson(isbn);
+        String jsonString = aladinApi.getStockJson(isbn);
         JSONObject jsonObject = new JSONObject(jsonString);
 
         JSONArray stores = jsonObject.getJSONArray("itemOffStoreList");

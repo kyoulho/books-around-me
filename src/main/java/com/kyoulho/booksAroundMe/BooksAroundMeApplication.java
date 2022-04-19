@@ -6,6 +6,7 @@ import org.springframework.context.annotation.PropertySource;
 
 @SpringBootApplication
 @PropertySource(value = {"classpath:api.properties"})
+@PropertySource(value = {"classpath:application.properties"})
 public class BooksAroundMeApplication {
 
     public static void main(String[] args) {

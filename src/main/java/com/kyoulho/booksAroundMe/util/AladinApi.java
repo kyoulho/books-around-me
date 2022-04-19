@@ -1,5 +1,6 @@
 package com.kyoulho.booksAroundMe.util;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -8,14 +9,17 @@ import java.net.HttpURLConnection;
 
 @Component
 public class AladinApi implements Api {
-    @Value("${aladin.ttb_key}")
-    private String TTB_KEY;
-    @Value("${aladin.book_url}")
-    private String BOOK_URL;
+
+    private final String ttbKey;
+    private final String bookURL;
+
+    public AladinApi(@Value("${aladin.ttb_key}") String ttbKey, @Value("${aladin.book_url}") String bookURL) {
+        this.ttbKey = ttbKey;
+        this.bookURL = bookURL;
+    }
 
     public String getStockJson(final String isbn) {
-        String requestUrl = BOOK_URL.replace("[TTBKey]", TTB_KEY).replace("[도서의ISBN]", isbn);
-
+        String requestUrl = bookURL.replace("[TTBKey]", ttbKey).replace("[ISBN]", isbn);
         return getData(requestUrl);
     }
 

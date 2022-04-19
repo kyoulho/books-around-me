@@ -63,31 +63,6 @@
                 </div>
             </div>
         </section>
-        
-        <script th:src="@{/js/index.js}"></script>
-        <script>
-            
-            $(".target").on("click", function (event) {
-                event.preventDefault();
-                
-                let imgNode = $(this).find("img");
-                let imgSrc = imgNode.attr("src");
-                
-                imgNode.attr("src", "/images/book.gif");
-                let isbn = $(this).attr("data");
-                
-                navigator.geolocation.getCurrentPosition((position) => {
-                    let lat = position.coords.latitude;
-                    let lng = position.coords.longitude;
-                    
-                    $("input[name=latitude]").val(lat);
-                    $("input[name=longitude]").val(lng);
-                    $("input[name=isbn]").val(isbn);
-                    imgNode.attr("src", imgSrc);
-                    $("#book-detail").submit();
-                });
-            });
-        
-        </script>
+        <script th:src="@{/js/common.js}"></script>
     </th:block>
 </th:block>

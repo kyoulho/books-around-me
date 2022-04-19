@@ -52,7 +52,6 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDTO getBookDTO(String isbn) {
-        final NaverApi naverApi = new NaverApi();
         String jsonString = naverApi.getJsonBook(isbn);
         JSONObject jsonObject = new JSONObject(jsonString);
         JSONArray items = jsonObject.getJSONArray("items");

@@ -1,5 +1,6 @@
 package com.kyoulho.booksAroundMe.util;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -12,18 +13,22 @@ import java.util.Map;
 
 @Component
 public class NaverApi implements Api {
-    @Value("${naver.client_id}")
-    private String CLIENT_ID;
-    @Value("${naver.client_secret}")
-    private String CLIENT_SECRET;
-    @Value(value = "${naver.api_url}")
-    private String API_URL;
+
+    private final String clientID;
+    private final String clientSecret;
+    private final String apiURL;
+
+    public NaverApi(@Value("${naver.client_id}") String clientId, @Value("${naver.client_secret}") String clientSecret, @Value("${naver.api_url}") String apiURL) {
+        this.clientID = clientId;
+        this.clientSecret = clientSecret;
+        this.apiURL = apiURL;
+    }
 
     public String getJsonAddress(String storeName) {
         String query;
         String start = "1";
         query = URLEncoder.encode(storeName, StandardCharsets.UTF_8);
-        String requestUrl = API_URL.replace("[searchType]", "local")
+        String requestUrl = apiURL.replace("[searchType]", "local")
                 .replace("[query]", query)
                 .replace("[start]", start);
         return getData(requestUrl);
@@ -34,7 +39,7 @@ public class NaverApi implements Api {
         String start;
         query = URLEncoder.encode(keyword, StandardCharsets.UTF_8);
         start = (page - 1) * 10 + 1 + "";
-        String requestUrl = API_URL.replace("[searchType]", "book")
+        String requestUrl = apiURL.replace("[searchType]", "book")
                 .replace("[query]", query)
                 .replace("[start]", start);
         return getData(requestUrl);
@@ -44,18 +49,18 @@ public class NaverApi implements Api {
         String query;
         String start = "1";
         query = URLEncoder.encode(isbn, StandardCharsets.UTF_8);
-        String requestUrl = API_URL.replace("[searchType]", "book")
+        String requestUrl = apiURL.replace("[searchType]", "book")
                 .replace("[query]", query)
                 .replace("[start]", start)
-                +"?d_isbn="+isbn;
+                + "?d_isbn=" + isbn;
         return getData(requestUrl);
     }
 
     private String getData(String requestUrl) {
 
         Map<String, String> requestHeaders = new HashMap<>();
-        requestHeaders.put("X-Naver-Client-Id", CLIENT_ID);
-        requestHeaders.put("X-Naver-Client-Secret", CLIENT_SECRET);
+        requestHeaders.put("X-Naver-Client-Id", clientID);
+        requestHeaders.put("X-Naver-Client-Secret", clientSecret);
 
         HttpURLConnection con = connect(requestUrl);
         try {
