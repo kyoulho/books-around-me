@@ -26,7 +26,8 @@
 
 ## 주요 라이브러리
 * Lombok
-* KakaoMap
+* Jsoup
+* Kakao-map
 * Naver-api
 * Aladin-api
 
