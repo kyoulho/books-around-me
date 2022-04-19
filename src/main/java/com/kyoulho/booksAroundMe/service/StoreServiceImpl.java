@@ -1,6 +1,6 @@
 package com.kyoulho.booksAroundMe.service;
 
-import com.kyoulho.booksAroundMe.util.StockCrawlerImpl;
+import com.kyoulho.booksAroundMe.util.StockCrawler;
 import com.kyoulho.booksAroundMe.dto.StoreDTO;
 import com.kyoulho.booksAroundMe.dto.StoreResponseDTO;
 import com.kyoulho.booksAroundMe.entity.StoreEntity;
@@ -15,12 +15,12 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class StoreServiceImpl implements StoreService {
-    private final StockCrawlerImpl stockCrawlerImpl;
+    private final StockCrawler stockCrawler;
     private final StoreMapper storeMapper;
 
     @Override
     public StoreResponseDTO getStoreStockData(final String isbn, final double latitude, final double longitude) {
-        List<StoreDTO> _list = stockCrawlerImpl.getStoreStockList(isbn);
+        List<StoreDTO> _list = stockCrawler.getStoreStockList(isbn);
 
         List<StoreDTO> list = _list.stream().filter(dto -> dto.getStock() > 0)
                 .peek(dto -> {

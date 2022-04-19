@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 @Component
-public class StockCrawlerImpl {
+public class StockCrawler {
     @Autowired
     private NaverApi naverApi;
 

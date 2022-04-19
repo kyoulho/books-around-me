@@ -1,6 +1,6 @@
 package com.kyoulho.booksAroundMe.DBUpdateController;
 
-import com.kyoulho.booksAroundMe.util.StockCrawlerImpl;
+import com.kyoulho.booksAroundMe.util.StockCrawler;
 import com.kyoulho.booksAroundMe.entity.StoreEntity;
 import com.kyoulho.booksAroundMe.mapper.StoreMapper;
 import org.junit.jupiter.api.Test;
@@ -12,7 +12,7 @@ import java.util.List;
 @SpringBootTest
 public class DBUpdateController {
     @Autowired
-    private StockCrawlerImpl stockCrawler;
+    private StockCrawler stockCrawler;
     @Autowired
     private StoreMapper mapper;
 
