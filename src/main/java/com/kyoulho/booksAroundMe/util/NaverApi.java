@@ -1,5 +1,6 @@
 package com.kyoulho.booksAroundMe.util;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
@@ -11,9 +12,12 @@ import java.util.Map;
 
 @Component
 public class NaverApi implements Api {
-    private static final String CLIENT_ID = "jyHa96iNcbPZ07I2HCY0";
-    private static final String CLIENT_SECRET = "6qCHcDzqu0";
-    private static final String API_URL = "https://openapi.naver.com/v1/search/[searchType].json?query=[query]&start=[start]";
+    @Value("${naver.client_id}")
+    private String CLIENT_ID;
+    @Value("${naver.client_secret}")
+    private String CLIENT_SECRET;
+    @Value(value = "${naver.api_url}")
+    private String API_URL;
 
     public String getJsonAddress(String storeName) {
         String query;

@@ -1,5 +1,6 @@
 package com.kyoulho.booksAroundMe.util;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -7,8 +8,10 @@ import java.net.HttpURLConnection;
 
 @Component
 public class AladinApi implements Api {
-    private static final String TTB_KEY = "ttbwelturn1101001";
-    private static final String BOOK_URL = " https://www.aladin.co.kr/ttb/api/ItemOffStoreList.aspx?ttbkey=[TTBKey]&itemIdType=ISBN13&ItemId=[도서의ISBN]&output=js";
+    @Value("${aladin.ttb_key}")
+    private String TTB_KEY;
+    @Value("${aladin.book_url}")
+    private String BOOK_URL;
 
     public String getStockJson(final String isbn) {
         String requestUrl = BOOK_URL.replace("[TTBKey]", TTB_KEY).replace("[도서의ISBN]", isbn);
@@ -24,7 +27,7 @@ public class AladinApi implements Api {
 
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 return readbody(con.getInputStream());
-            }else {
+            } else {
                 return readbody(con.getErrorStream());
             }
         } catch (IOException e) {
