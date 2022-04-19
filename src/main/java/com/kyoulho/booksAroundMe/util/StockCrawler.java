@@ -1,11 +1,11 @@
 package com.kyoulho.booksAroundMe.util;
 
 import com.kyoulho.booksAroundMe.dto.StoreDTO;
+import lombok.RequiredArgsConstructor;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -14,9 +14,9 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 @Component
+@RequiredArgsConstructor
 public class StockCrawler {
-    @Autowired
-    private NaverApi naverApi;
+    private final NaverApi naverApi;
 
     public List<StoreDTO> getStoreStockList(final String isbn) {
         List<StoreDTO> StoreStockList = new ArrayList<>();
