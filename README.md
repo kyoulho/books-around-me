@@ -2,7 +2,7 @@
 #목차
 <li><a href="#개발환경">개발환경</a></li>
 
-#<h2>개발 환경</h2>
+<h2>개발 환경</h2>
 <ul>
 <li>intelliJ</li>
 <li>Dbeaver</li>
