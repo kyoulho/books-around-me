@@ -20,6 +20,7 @@ $(".target").on("click", function (event) {
         $("input[name=longitude]").val(lng);
         $("input[name=isbn]").val(isbn);
 
+        console.log(lat, lng);
         $("#book-detail").submit();
         $("#load").remove();
     });
