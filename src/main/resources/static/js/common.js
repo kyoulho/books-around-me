@@ -21,16 +21,17 @@ $(".target").on("click", function (event) {
         $("input[name=isbn]").val(isbn);
 
         $("#book-detail").submit();
+        $("#load").remove();
     });
-    $("#load").remove();
 });
 
 function loading() {
     let divNode = document.createElement("div");
     divNode.setAttribute("id", 'load');
 
+
     let imgNod = document.createElement("img");
-    imgNod.setAttribute("src", '/images/book.gif');
+    imgNod.setAttribute("src", '/images/Magnify-1s-200px.gif');
     divNode.append(imgNod);
 
     $("body").append(divNode);

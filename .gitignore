@@ -6,6 +6,7 @@ build/
 !**/src/test/**/build/
 
 src/main/resources/application-api.properties
+src/main/resources/application-db.properties
 
 ### STS ###
 .apt_generated
