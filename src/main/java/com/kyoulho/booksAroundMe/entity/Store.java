@@ -3,7 +3,8 @@ package com.kyoulho.booksAroundMe.entity;
 import lombok.Data;
 
 @Data
-public class StoreEntity {
+
+public class Store {
     private String storeName;
     private String address;
     private double latitude;

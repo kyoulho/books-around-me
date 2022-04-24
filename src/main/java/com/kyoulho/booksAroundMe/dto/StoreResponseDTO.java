@@ -12,7 +12,11 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class StoreResponseDTO {
+
+    private String kakaoApiKey;
+
     private List<StoreDTO> list;
+
     private BookDTO bookDTO;
     private String keyword;
     private int page;

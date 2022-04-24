@@ -18,7 +18,7 @@ public class AladinApi implements Api {
         this.bookURL = bookURL;
     }
 
-    public String getStockJson(final String isbn) {
+    public String getStockJson(String isbn) {
         String requestUrl = bookURL.replace("[TTBKey]", ttbKey).replace("[ISBN]", isbn);
         return getData(requestUrl);
     }

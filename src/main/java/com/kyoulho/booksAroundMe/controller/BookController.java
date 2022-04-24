@@ -6,6 +6,7 @@ import com.kyoulho.booksAroundMe.service.StoreService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class BookController {
     private final BookService bookService;
     private final StoreService storeService;
+    @Value("${kakao.api_key}")
+    private String kakaoApiKey;
+
 
     @GetMapping("/searchBook")
     public void searchBook(BookRequestDTO bookRequestDTO, Model model) {
@@ -43,6 +47,7 @@ public class BookController {
 
 
         StoreResponseDTO result = storeService.getStoreStockData(isbn, latitude, longitude);
+        result.setKakaoApiKey(kakaoApiKey);
         result.setBookDTO(bookDTO);
         result.setResponse(storeRequestDTO);
 

@@ -1,10 +1,9 @@
 package com.kyoulho.booksAroundMe.mapper;
 
-import com.kyoulho.booksAroundMe.entity.StoreEntity;
-import lombok.extern.log4j.Log4j2;
-import org.apache.ibatis.annotations.*;
-
-import java.util.List;
+import com.kyoulho.booksAroundMe.entity.Store;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface StoreMapper {
@@ -19,14 +18,6 @@ public interface StoreMapper {
             ") AS distance" +
             " FROM store_tbl" +
             " WHERE storeName like #{storeName}")
-    public StoreEntity selectStore(@Param("storeName") String storeName, @Param("lat") double latitude, @Param("lng") double longitude);
+    public Store selectStore(@Param("storeName") String storeName, @Param("lat") double latitude, @Param("lng") double longitude);
 
-    @Select("SELECT * FROM store_tbl")
-    public List<StoreEntity> selectAllStore();
-
-    @Update("UPDATE store_tbl SET address = #{address} WHERE storeName like #{storeName}")
-    public void setAddress(StoreEntity storeEntity);
-
-    @Update("UPDATE store_tbl SET city = #{city} WHERE storeName like #{storeName}")
-    public void setCity(StoreEntity storeEntity);
 }
