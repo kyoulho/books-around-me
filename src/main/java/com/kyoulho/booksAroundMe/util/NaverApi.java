@@ -13,16 +13,13 @@ import java.util.Map;
 
 @Component
 public class NaverApi implements Api {
+    @Value("${naver.client_id}")
+    private  String clientID;
+    @Value("${naver.client_secret}")
+    private  String clientSecret;
+    @Value("${naver.api_url}")
+    private  String apiURL;
 
-    private final String clientID;
-    private final String clientSecret;
-    private final String apiURL;
-
-    public NaverApi(@Value("${naver.client_id}") String clientId, @Value("${naver.client_secret}") String clientSecret, @Value("${naver.api_url}") String apiURL) {
-        this.clientID = clientId;
-        this.clientSecret = clientSecret;
-        this.apiURL = apiURL;
-    }
 
     public String getJsonAddress(String storeName) {
         String query;

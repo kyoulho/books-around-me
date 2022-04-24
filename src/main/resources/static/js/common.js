@@ -9,12 +9,8 @@ searchFormBtn.addEventListener("click", function (event) {
 
 $(".target").on("click", function (event) {
     event.preventDefault();
-
-    let imgNode = $(this).find("img");
-    let imgSrc = imgNode.attr("src");
-
-    imgNode.attr("src", "/images/book.gif");
     let isbn = $(this).attr("data");
+    loading();
 
     navigator.geolocation.getCurrentPosition((position) => {
         let lat = position.coords.latitude;
@@ -23,7 +19,19 @@ $(".target").on("click", function (event) {
         $("input[name=latitude]").val(lat);
         $("input[name=longitude]").val(lng);
         $("input[name=isbn]").val(isbn);
-        imgNode.attr("src", imgSrc);
+
         $("#book-detail").submit();
     });
+    $("#load").remove();
 });
+
+function loading() {
+    let divNode = document.createElement("div");
+    divNode.setAttribute("id", 'load');
+
+    let imgNod = document.createElement("img");
+    imgNod.setAttribute("src", '/images/book.gif');
+    divNode.append(imgNod);
+
+    $("body").append(divNode);
+}

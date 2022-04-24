@@ -9,14 +9,11 @@ import java.net.HttpURLConnection;
 
 @Component
 public class AladinApi implements Api {
+    @Value("${aladin.ttb_key}")
+    private  String ttbKey;
+    @Value("${aladin.book_url}")
+    private  String bookURL;
 
-    private final String ttbKey;
-    private final String bookURL;
-
-    public AladinApi(@Value("${aladin.ttb_key}") String ttbKey, @Value("${aladin.book_url}") String bookURL) {
-        this.ttbKey = ttbKey;
-        this.bookURL = bookURL;
-    }
 
     public String getStockJson(String isbn) {
         String requestUrl = bookURL.replace("[TTBKey]", ttbKey).replace("[ISBN]", isbn);
