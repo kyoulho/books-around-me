@@ -7,8 +7,7 @@ build/
 
 src/main/resources/application-api.properties
 src/main/resources/application-db.properties
-src/test/java/com/kyoulho/booksAroundMe/api/AladinApiTest.java
-src/test/java/com/kyoulho/booksAroundMe/api/NaverApiTest.java
+
 
 
 ### STS ###
