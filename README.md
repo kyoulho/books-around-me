@@ -10,7 +10,6 @@ http://ec2-3-34-76-187.ap-northeast-2.compute.amazonaws.com:8080/
 
 ## 개발 환경
 * IntelliJ
-* Dbeaver
 * GitHub
 * Ec2
 * Rds
